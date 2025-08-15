@@ -1,31 +1,32 @@
-﻿using System.Windows;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using YourNamespace;
 
-namespace YourNamespace
+namespace User.PluginSdkDemo
 {
     public partial class PitWindowSettingsControl : UserControl
     {
-        private PitWindowPlugin _plugin;
+        private readonly PitWindowPlugin _plugin;
 
-        // Пустой конструктор — нужен дизайнеру Visual Studio
+        // Пустой конструктор — необходим дизайнеру
         public PitWindowSettingsControl()
         {
             InitializeComponent();
 
-            // Дизайнер Visual Studio может создавать контрол без плагина.
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (DesignerProperties.GetIsInDesignMode(this))
             {
-                this.DataContext = new PitWindowSettings(); // фиктивные данные для предпросмотра
+                this.DataContext = new PitWindowSettings();
             }
         }
 
-        // Рабочий конструктор — SimHub будет вызывать его из плагина
+        // Рабочий конструктор — будет вызван SimHub с экземпляром плагина
         public PitWindowSettingsControl(PitWindowPlugin plugin) : this()
         {
             _plugin = plugin;
             if (_plugin != null && _plugin.Settings != null)
             {
-                this.DataContext = _plugin.Settings; // биндинги из XAML начинают работать
+                this.DataContext = _plugin.Settings;
             }
         }
 
@@ -36,20 +37,20 @@ namespace YourNamespace
 
         private void OnResetDefaultsClick(object sender, RoutedEventArgs e)
         {
-            var res = MessageBox.Show("Сбросить настройки на значения по умолчанию?", "PitWindow",
-                                      MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var res = MessageBox.Show("Сбросить настройки на значения по умолчанию?",
+                                      "PitWindow", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
                 var def = new PitWindowSettings();
                 if (_plugin != null)
                 {
-                    _plugin.Settings = def;          // заменяем объект настроек
-                    this.DataContext = def;          // обновляем биндинги
-                    _plugin.SaveSettingsNow();       // сохраняем файл конфигурации
+                    _plugin.Settings = def;    // требуется публичный setter
+                    this.DataContext = def;
+                    _plugin.SaveSettingsNow();
                 }
                 else
                 {
-                    this.DataContext = def;          // для дизайнера
+                    this.DataContext = def;
                 }
             }
         }
