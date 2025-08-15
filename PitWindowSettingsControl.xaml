@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="YourNamespace.PitWindowSettingsControl"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:local="clr-namespace:YourNamespace"
+          xmlns:sys="clr-namespace:System;assembly=mscorlib"
+          MinWidth="520" MinHeight="560">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Базовые времена -->
+            <GroupBox Header="Базовые времена (сек)" Grid.Row="0" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Пит с остановкой (Pit_Stop_Base_s):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Margin="6,2"
+               Text="{Binding Pit_Stop_Base_s, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="1" Text="Drive-through (Pit_DT_Base_s):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="6,2"
+               Text="{Binding Pit_DT_Base_s, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="2" Text="Stop-and-go базовое (SG_Stop_Base_s):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="6,2"
+               Text="{Binding SG_Stop_Base_s, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Топливо -->
+            <GroupBox Header="Топливо" Grid.Row="1" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Единицы топлива:" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="1" Margin="6,2"
+                SelectedValue="{Binding FuelUnit, Mode=TwoWay}"
+                SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Литры" Tag="{x:Static local:FuelUnit.Liters}"/>
+                        <ComboBoxItem Content="Галлоны" Tag="{x:Static local:FuelUnit.Gallons}"/>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="1" Text="Скорость заправки (л/с):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="6,2"
+               Text="{Binding Refuel_Rate_Lps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="2" Text="Имя свойства 'Litres to add' (PitSvFuel):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_PitSvFuel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Шины -->
+            <GroupBox Header="Шины" Grid.Row="2" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Время смены шин (сек):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Margin="6,2"
+               Text="{Binding Tires_Change_Time_s, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="1" Text="Свойство LF шины:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_TireLF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="2" Text="Свойство RF шины:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_TireRF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="3" Text="Свойство LR шины:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_TireLR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="4" Text="Свойство RR шины:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_TireRR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Ремонт -->
+            <GroupBox Header="Ремонт" Grid.Row="3" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Content="Планирую быстрый ремонт (если доступен)" IsChecked="{Binding PlanFastRepair, Mode=TwoWay}" />
+
+                    <CheckBox Grid.Row="1" Content="Учитывать опциональный ремонт (PitOptRepairLeft)"
+                IsChecked="{Binding IncludeOptionalRepair, Mode=TwoWay}" />
+
+                    <TextBlock Grid.Row="2" Text="Свойство 'Fast repairs left':" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_FastRepairsLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="3" Text="Свойства ремонта (обычн./опц.):" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="6,2">
+                        <TextBox Margin="0,0,0,4" 
+                 Text="{Binding Prop_PitRepairLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding Prop_PitOptRepairLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <!-- Эталонный круг -->
+            <GroupBox Header="Эталонный круг" Grid.Row="4" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Источник RefLap:" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="1" Margin="6,2"
+                SelectedValue="{Binding RefLapSource, Mode=TwoWay}"
+                SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Auto" Tag="{x:Static local:RefLapSource.Auto}"/>
+                        <ComboBoxItem Content="Best" Tag="{x:Static local:RefLapSource.Best}"/>
+                        <ComboBoxItem Content="Last" Tag="{x:Static local:RefLapSource.Last}"/>
+                        <ComboBoxItem Content="Manual" Tag="{x:Static local:RefLapSource.Manual}"/>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="1" Text="Manual RefLap (сек):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="6,2"
+               Text="{Binding ManualRefLap_s, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="2" Text="Свойства Est/Last/Best:" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="6,2" Orientation="Vertical">
+                        <TextBox Margin="0,0,0,4" 
+                 Text="{Binding Prop_EstLapTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Margin="0,0,0,4"
+                 Text="{Binding Prop_LastLapTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding Prop_BestLapTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <!-- Штрафы / DT -->
+            <GroupBox Header="Штрафы / DT" Grid.Row="5" Margin="0,0,0,8">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Content="Использовать авто-длительность DT (из ExtraProps)"
+                IsChecked="{Binding UseAutoDTDuration, Mode=TwoWay}" />
+
+                    <TextBlock Grid.Row="1" Text="Свойство авто-DT duration:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_PitDTDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="2" Text="Свойство 'DT активен':" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_DriveThroughActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Grid.Row="3" Text="Свойство 'S&G активен':" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="6,2"
+               Text="{Binding Prop_StopAndGoActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+
+                    <!-- Подпись про автодетект -->
+                    <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Margin="0,8,0,0" Foreground="Gray" TextWrapping="Wrap">
+        Если поля 'DT активен' и 'S&G активен' пустые — плагин попробует
+        автодетект через IRacingExtraProperties (см. дефолты в настройках).
+                    </TextBlock>
+                </Grid>
+            </GroupBox>
+
+            <!-- Кнопки -->
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Сбросить на дефолт" Margin="0,0,8,0" Click="OnResetDefaultsClick"/>
+                <Button Content="Сохранить сейчас" Click="OnSaveNowClick"/>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>
