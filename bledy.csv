@@ -1,0 +1,55 @@
+﻿Ważność;Kod;Opis;Plik;Wiersz
+Błąd (aktywny);CS0234;Typ lub przestrzeń nazw „Data” nie występuje w przestrzeni nazw „SimHub.Plugins” (czy nie brakuje odwołania do zestawu?);PitWindowPlugin.cs;3
+Błąd (aktywny);CS0535;'Element „PitWindowPlugin” nie implementuje składowej interfejsu „IPlugin.PluginManager”;PitWindowPlugin.cs;15
+Błąd (aktywny);CS0535;'Element „PitWindowPlugin” nie implementuje składowej interfejsu „IDataPlugin.DataUpdate(PluginManager, ref GameData)”;PitWindowPlugin.cs;15
+Błąd (aktywny);CS0535;'Element „PitWindowPlugin” nie implementuje składowej interfejsu „IWPFSettingsV2.PictureIcon”;PitWindowPlugin.cs;15
+Błąd (aktywny);CS0535;'Element „PitWindowPlugin” nie implementuje składowej interfejsu „IWPFSettingsV2.LeftMenuTitle”;PitWindowPlugin.cs;15
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;34
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;35
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;36
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;37
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;38
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;39
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;40
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „PropertyValue<>” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;41
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;49
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „double” na „System.Type”;PitWindowPlugin.cs;49
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;49
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;50
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „double” na „System.Type”;PitWindowPlugin.cs;50
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;50
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;51
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „bool” na „System.Type”;PitWindowPlugin.cs;51
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;51
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;52
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „bool” na „System.Type”;PitWindowPlugin.cs;52
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;52
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;54
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „double” na „System.Type”;PitWindowPlugin.cs;54
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;54
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;55
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „double” na „System.Type”;PitWindowPlugin.cs;55
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;55
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;57
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „bool” na „System.Type”;PitWindowPlugin.cs;57
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;57
+Błąd (aktywny);CS1503;Argument „2”: nie można przekonwertować z „string” na „System.Type”;PitWindowPlugin.cs;58
+Błąd (aktywny);CS1503;Argument „3”: nie można przekonwertować z „bool” na „System.Type”;PitWindowPlugin.cs;58
+Błąd (aktywny);CS1503;Argument „5”: nie można przekonwertować z „string” na „bool”;PitWindowPlugin.cs;58
+Błąd (aktywny);CS0246;Nie można znaleźć nazwy typu lub przestrzeni nazw „IPluginManager” (brak dyrektywy using lub odwołania do zestawu?);PitWindowPlugin.cs;100
+Błąd (aktywny);CS1501;Żadne przeładowanie metody „GetPropertyValue” nie pobiera następującej liczby argumentów: „2”;PitWindowPlugin.cs;208
+Błąd (aktywny);CS1501;Żadne przeładowanie metody „GetPropertyValue” nie pobiera następującej liczby argumentów: „2”;PitWindowPlugin.cs;213
+Błąd (aktywny);CS1501;Żadne przeładowanie metody „GetPropertyValue” nie pobiera następującej liczby argumentów: „2”;PitWindowPlugin.cs;219
+Błąd (aktywny);CS1501;Żadne przeładowanie metody „GetPropertyValue” nie pobiera następującej liczby argumentów: „2”;PitWindowPlugin.cs;227
+Błąd;XDG0000;"Oczekiwano następującego tokenu: „;”.";PitWindowSettingsControl.xaml;50
+Błąd;XLS0108;"Odwołania do jednostek lub sekwencje rozpoczynające się od znaku handlowego „i” (&) muszą kończyć się średnikiem „;”.";PitWindowSettingsControl.xaml;50
+Błąd;XLS0414;Nie odnaleziono typu „ReferenceLapSource”. Upewnij się, że nie brakuje odwołania do zestawu oraz że skompilowano wszystkie zestawy, do których istnieją odwołania.;PitWindowSettingsControl.xaml;73
+Błąd;XLS0414;Nie odnaleziono typu „local:ReferenceLapSource”. Upewnij się, że nie brakuje odwołania do zestawu oraz że skompilowano wszystkie zestawy, do których istnieją odwołania.;PitWindowSettingsControl.xaml;79
+Błąd;XLS0414;Nie odnaleziono typu „local:ReferenceLapSource”. Upewnij się, że nie brakuje odwołania do zestawu oraz że skompilowano wszystkie zestawy, do których istnieją odwołania.;PitWindowSettingsControl.xaml;80
+Błąd;XLS0414;Nie odnaleziono typu „local:ReferenceLapSource”. Upewnij się, że nie brakuje odwołania do zestawu oraz że skompilowano wszystkie zestawy, do których istnieją odwołania.;PitWindowSettingsControl.xaml;81
+Komunikat (aktywny);IDE0060;Unikaj nieużywanych parametrów w kodzie. Jeśli nie można usunąć parametru, zmień jego nazwę, tak aby rozpoczynała się od znaku podkreślenia, a opcjonalnie następowała po niej liczba całkowita, na przykład „_”, „_1”, „_2” itp. Są one traktowane jako specjalne nazwy symboli odrzucenia.;PitWindowPlugin.cs;67
+Komunikat (aktywny);IDE0060;Unikaj nieużywanych parametrów w kodzie. Jeśli nie można usunąć parametru, zmień jego nazwę, tak aby rozpoczynała się od znaku podkreślenia, a opcjonalnie następowała po niej liczba całkowita, na przykład „_”, „_1”, „_2” itp. Są one traktowane jako specjalne nazwy symboli odrzucenia.;PitWindowPlugin.cs;67
+Komunikat (aktywny);IDE0060;Unikaj nieużywanych parametrów w kodzie. Jeśli nie można usunąć parametru, zmień jego nazwę, tak aby rozpoczynała się od znaku podkreślenia, a opcjonalnie następowała po niej liczba całkowita, na przykład „_”, „_1”, „_2” itp. Są one traktowane jako specjalne nazwy symboli odrzucenia.;PitWindowPlugin.cs;100
+Komunikat (aktywny);IDE0060;Unikaj nieużywanych parametrów w kodzie. Jeśli nie można usunąć parametru, zmień jego nazwę, tak aby rozpoczynała się od znaku podkreślenia, a opcjonalnie następowała po niej liczba całkowita, na przykład „_”, „_1”, „_2” itp. Są one traktowane jako specjalne nazwy symboli odrzucenia.;PitWindowPlugin.cs;105
+Komunikat (aktywny);IDE0054;Użyj przypisania złożonego;PitWindowPlugin.cs;200
+Komunikat (aktywny);IDE0037;Nazwę składowej można uprościć;PitWindowSettingsControl.xaml.cs;14
