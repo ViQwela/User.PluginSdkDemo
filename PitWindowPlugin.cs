@@ -3,6 +3,8 @@ using SimHub.Plugins;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Xml.Serialization;
 using YourNamespace;
 
@@ -13,15 +15,15 @@ namespace User.PluginSdkDemo
     [PluginName("PitWindow Data")]
     public class PitWindowPlugin : IPlugin, IDataPlugin, IWPFSettingsV2
     {
-        // Требование IPlugin: свойство PluginManager
+        // Требуется IPlugin
         public PluginManager PluginManager { get; set; }
 
-        // Настройки
+        // Настройки (сохраняем сами в файл)
         public PitWindowSettings Settings { get; set; } = new PitWindowSettings();
 
-        // IWPFSettingsV2 UI
+        // Требуется IWPFSettingsV2
         public string LeftMenuTitle => "PitWindow Data";
-        public string PictureIcon => null; // можно указать pack:// uri на иконку, если добавите ресурс
+        public ImageSource PictureIcon => null; // сюда можно подложить ImageSource из ресурсов, если нужно
 
         private readonly Stopwatch _sw = Stopwatch.StartNew();
         private double _lastPlanUpdate = -100.0;
@@ -34,30 +36,30 @@ namespace User.PluginSdkDemo
         private double _refLap_s = 90.0; // запас по умолчанию
         private double _playerPct = 0;
 
-        // Жизненный цикл
         public void Init(PluginManager pluginManager)
         {
             PluginManager = pluginManager;
-            LoadSettings(); // своя загрузка
+            LoadSettings();
         }
 
         public void End(PluginManager pluginManager)
         {
-            SaveSettings(); // своя сохранение
+            SaveSettings();
         }
 
-        // Основной цикл данных
         public void DataUpdate(PluginManager pluginManager, ref GameData data)
         {
-            if (!data.GameRunning || !data.NewData) return;
+            // В некоторых версиях демо GameData.GameRunning/NewData — не bool, поэтому не используем !
+            if (!string.Equals(data.GameName, "IRacing", StringComparison.OrdinalIgnoreCase))
+                return;
 
-            // Обновляем быстрые данные
+            // Быстрые данные
             _playerPct = GetDouble(pluginManager, "iRacing.PlayerLapDistPct", 0.0);
 
             // Эталон круга
             _refLap_s = ComputeRefLapTime(pluginManager);
 
-            // Раз в секунду пересчитываем «логические» части
+            // Раз в 1 сек логика плана/штрафов
             double now = _sw.Elapsed.TotalSeconds;
             if (now - _lastPlanUpdate >= 1.0)
             {
@@ -65,14 +67,14 @@ namespace User.PluginSdkDemo
                 UpdatePlanAndPenalties(pluginManager);
             }
 
-            // Конвертируем в проценты круга
+            // Проценты круга для маркеров
             double pitOff = _refLap_s > 0.001 ? Clamp(_pitStopLoss_s / _refLap_s, 0, 5) : 0;
             double dtOff = _refLap_s > 0.001 ? Clamp(_dtLoss_s / _refLap_s, 0, 5) : 0;
 
             double pitPct = Wrap01(_playerPct - pitOff);
             double dtPct = Wrap01(_playerPct - dtOff);
 
-            // Публикуем свойства (у вашего SDK SetPropertyValue<TPlugin>)
+            // Публикуем свойства
             pluginManager.SetPropertyValue<PitWindowPlugin>("PitWindow.PlayerPct", _playerPct);
             pluginManager.SetPropertyValue<PitWindowPlugin>("PitWindow.RefLap_s", _refLap_s);
             pluginManager.SetPropertyValue<PitWindowPlugin>("PitWindow.PitStopLoss_s", _pitStopLoss_s);
@@ -83,11 +85,17 @@ namespace User.PluginSdkDemo
             pluginManager.SetPropertyValue<PitWindowPlugin>("PitWindow.DriveThroughPct", dtPct);
         }
 
-        // Настройки: сохранение/загрузка (в Документы\SimHub\Plugins\PitWindowData\PitWindow.Settings.xml)
-        public void SaveSettingsNow()
+        public Control GetWPFSettingsControl(PluginManager pluginManager)
         {
-            SaveSettings();
+            return new PitWindowSettingsControl(this);
         }
+
+        // Публичный метод для кнопки "Сохранить сейчас"
+        public void SaveSettingsNow() => SaveSettings();
+
+        // ============================
+        // Настройки: сохранение/загрузка
+        // ============================
 
         private string GetSettingsFilePath()
         {
@@ -125,10 +133,7 @@ namespace User.PluginSdkDemo
                     {
                         var ser = new XmlSerializer(typeof(PitWindowSettings));
                         var loaded = ser.Deserialize(fs) as PitWindowSettings;
-                        if (loaded != null)
-                        {
-                            Settings = loaded;
-                        }
+                        if (loaded != null) Settings = loaded;
                     }
                 }
             }
@@ -138,7 +143,10 @@ namespace User.PluginSdkDemo
             }
         }
 
-        // Перерасчёт плана и штрафов
+        // ============================
+        // Логика расчётов
+        // ============================
+
         private void UpdatePlanAndPenalties(PluginManager manager)
         {
             (_dtActive, _sgActive) = DetectPenalties(manager);
@@ -240,6 +248,9 @@ namespace User.PluginSdkDemo
                 case RefLapSource.Last:
                     return last > 1 ? last : (est > 1 ? est : (best > 1 ? best : (manual > 0 ? manual : 90.0)));
 
+                case RefLapSource.Manual:
+                    return manual > 0 ? manual : 90.0;
+
                 default:
                     return 90.0;
             }
@@ -247,7 +258,7 @@ namespace User.PluginSdkDemo
 
         private bool AreTiresPlanned(PluginManager manager)
         {
-            // 1) Явные булевые свойства (если заданы)
+            // Явные булевые свойства, если заданы
             bool? lf = TryGetBool(manager, Settings.Prop_TireLF);
             bool? rf = TryGetBool(manager, Settings.Prop_TireRF);
             bool? lr = TryGetBool(manager, Settings.Prop_TireLR);
@@ -256,7 +267,7 @@ namespace User.PluginSdkDemo
             if (lf != null || rf != null || lr != null || rr != null)
                 return (lf ?? false) || (rf ?? false) || (lr ?? false) || (rr ?? false);
 
-            // 2) Фолбек: битовая маска PitSvFlags
+            // Фолбек: битовая маска
             int? flags = TryGetInt(manager, "iRacing.PitSvFlags");
             if (flags.HasValue)
             {
@@ -271,7 +282,10 @@ namespace User.PluginSdkDemo
             return false;
         }
 
+        // ============================
         // Helpers
+        // ============================
+
         private static double Wrap01(double x)
         {
             x %= 1.0;
@@ -289,71 +303,59 @@ namespace User.PluginSdkDemo
         private static double GetDouble(PluginManager manager, string prop, double def)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return def;
             if (v is double d) return d;
             if (v is float f) return f;
             if (v is int i) return i;
             if (v is long l) return l;
-            if (double.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && double.TryParse(v.ToString(), out var p)) return p;
             return def;
         }
 
         private static int GetInt(PluginManager manager, string prop, int def)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return def;
             if (v is int i) return i;
             if (v is long l) return (int)l;
-            if (int.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && int.TryParse(v.ToString(), out var p)) return p;
             return def;
         }
 
         private static bool GetBool(PluginManager manager, string prop, bool def)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return def;
             if (v is bool b) return b;
             if (v is int i) return i != 0;
-            if (bool.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && bool.TryParse(v.ToString(), out var p)) return p;
             return def;
         }
 
         private static double? TryGetDouble(PluginManager manager, string prop)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return null;
             if (v is double d) return d;
             if (v is float f) return f;
             if (v is int i) return i;
             if (v is long l) return l;
-            if (double.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && double.TryParse(v.ToString(), out var p)) return p;
             return null;
         }
 
         private static int? TryGetInt(PluginManager manager, string prop)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return null;
             if (v is int i) return i;
             if (v is long l) return (int)l;
-            if (int.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && int.TryParse(v.ToString(), out var p)) return p;
             return null;
         }
 
         private static bool? TryGetBool(PluginManager manager, string prop)
         {
             var v = GetRaw(manager, prop);
-            if (v == null) return null;
             if (v is bool b) return b;
             if (v is int i) return i != 0;
-            if (bool.TryParse(v.ToString(), out var p)) return p;
+            if (v != null && bool.TryParse(v.ToString(), out var p)) return p;
             return null;
-        }
-
-        // IWPFSettingsV2
-        public System.Windows.Controls.Control GetWPFSettingsControl(PluginManager pluginManager)
-        {
-            return new PitWindowSettingsControl(this);
         }
     }
 }
